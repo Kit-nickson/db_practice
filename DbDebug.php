@@ -10,8 +10,7 @@ class DbDebug
     public function __call($name, $arguments)
     {
         try {
-            $this->db->$name(...$arguments);
-            print $name.' successful!';
+            return $this->db->$name(...$arguments);
         } catch (PDOException $e) {
             print $e->getMessage();
         }

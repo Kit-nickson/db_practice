@@ -7,22 +7,18 @@ spl_autoload_register(function($class){
 $db = new DB();
 $debug = new DbDebug($db);
 
-// $db->createDB('space');
-// $db->createTable('space', 'planets', [
-//     'id' => 'int(11)',
-//     'name' => 'varchar(255)',
-//     'moons' => 'int(11)',
-//     'water' => 'boolean'
-//     ,]);
 
-// $db->deleteTable('space', 'planets2');
+// $debug->createTable('space', 'planets', [
+//     'id' => 'int(11) PRIMARY KEY AUTO_INCREMENT',
+//     'planet' => 'varchar(255)',
+//     'water' => 'bool'
+// ]);
 
-// $db->getRandom();
+// print_r($debug->getTableColumns('space', 'planets'));
 
-$debug->createTable('space', 'planets', [
-        'id' => 'int(11)',
-        'name' => 'varchar(255)',
-        'moons' => 'int(11)',
-        'water' => 'boolean'
-        ,]);
+
+// $debug->insert('space', 'planets', [
+//     'planet' => 'Mercury',
+//     'water' => '1'
+// ]);
 

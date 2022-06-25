@@ -54,7 +54,7 @@ class DB
     }
 
 
-    public function createTable(string $db, string $table, array $columns = ['id' => 'int(11)']): void
+    public function createTable(string $db, string $table, array $columns = ['id' => 'int(11) PRIMARY KEY AUTO_INCREMENT']): void
     {
         $cols = '';
 
@@ -71,6 +71,44 @@ class DB
     public function deleteTable(string $db, string $table): void
     {
         $this->db->exec("USE $db; DROP TABLE $table");
+    }
+
+
+    public function getTableColumns(string $db, string $table): array
+    {
+        $colsArray = [];
+        $query = $this->db->prepare("SHOW COLUMNS FROM $table FROM $db");
+        $query->execute();
+
+        $cols = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($cols as $key => $col) {
+            foreach($col as $key => $info){
+                if ($key === 'Field') {
+                    $colsArray[] .= $info;
+                }
+            }
+        }
+
+        return $colsArray;
+    }
+
+
+    public function insert(string $db, string $table, array $colValues): void
+    {
+        $colsStr = '';
+        $valuesStr = '';
+
+        foreach ($colValues as $col => $val) {
+            $colsStr .= "`$col`, ";
+            $valuesStr .= "'$val', ";
+        }
+
+        $colsStr = trim($colsStr, ', ');
+        $valuesStr = trim($valuesStr, ', ');
+
+
+        $this->db->exec("USE $db; INSERT INTO `$table` ($colsStr) VALUES ($valuesStr)");
     }
 
 }
