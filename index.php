@@ -8,17 +8,8 @@ $db = new DB();
 $debug = new DbDebug($db);
 
 
-// $debug->createTable('space', 'planets', [
-//     'id' => 'int(11) PRIMARY KEY AUTO_INCREMENT',
-//     'planet' => 'varchar(255)',
-//     'water' => 'bool'
-// ]);
 
-// print_r($debug->getTableColumns('space', 'planets'));
-
-
-// $debug->insert('space', 'planets', [
-//     'planet' => 'Mercury',
-//     'water' => '1'
-// ]);
+print '<pre>';
+print_r($debug->select('blog', 'users', 'id = 2'));
+print '</pre>';
 

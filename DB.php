@@ -93,6 +93,18 @@ class DB
         return $colsArray;
     }
 
+    // CRUD
+
+    public function select(string $db, string $table, $condition): string|array
+    {
+        $query = $this->db->prepare("USE space; SELECT * FROM planets");
+        $query->execute();
+
+        // die(var_dump($query->fetchAll(PDO::FETCH_ASSOC)));
+        print $query->debugDumpParams();
+        return print_r( $query->fetchAll(PDO::FETCH_ASSOC) );
+    }
+
 
     public function insert(string $db, string $table, array $colValues): void
     {
@@ -109,6 +121,12 @@ class DB
 
 
         $this->db->exec("USE $db; INSERT INTO `$table` ($colsStr) VALUES ($valuesStr)");
+    }
+
+
+    public function delete(string $db, string $table, string $condition): void
+    {
+        $this->db->exec("USE $db; DELETE FROM $table WHERE $condition");
     }
 
 }
