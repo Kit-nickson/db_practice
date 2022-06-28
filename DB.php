@@ -97,12 +97,18 @@ class DB
 
     public function select(string $db, string $table, $condition): string|array
     {
-        $query = $this->db->prepare("USE space; SELECT * FROM planets");
+        $this->db->exec("USE $db");
+
+        $query = $this->db->prepare("SELECT * FROM $table WHERE $condition");
         $query->execute();
 
-        // die(var_dump($query->fetchAll(PDO::FETCH_ASSOC)));
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
         print $query->debugDumpParams();
-        return print_r( $query->fetchAll(PDO::FETCH_ASSOC) );
+        print_r($result);
+
+        die;
+
     }
 
 

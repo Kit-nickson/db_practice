@@ -10,6 +10,6 @@ $debug = new DbDebug($db);
 
 
 print '<pre>';
-print_r($debug->select('blog', 'users', 'id = 2'));
+print_r($debug->select('space', 'planets', 'water = 1'));
 print '</pre>';
 
